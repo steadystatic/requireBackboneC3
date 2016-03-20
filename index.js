@@ -1,10 +1,16 @@
-define(["jquery", "underscore", "backbone", "c3"],
-    function ($, _, Backbone, c3) {
-        console.log('Loaded from require.....');
-        console.log("Test output");
-        console.log("$: " + typeof $);
-        console.log("_: " + typeof _);
-        console.log("Backbone: " + typeof Backbone);
-        console.log("c3: " + typeof c3);
-    }
-);
+define(function(require) {
+
+    var Backbone = require('backbone');
+    var AppRouter = require('../js/AppRouter');
+
+    var App = {
+        start: function() {
+            console.log('In the app, now.');
+            var appRouter = new AppRouter();
+            Backbone.history.start();
+        }
+    };
+
+    App.start();
+
+});
