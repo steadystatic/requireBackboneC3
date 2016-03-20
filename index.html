@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Require + Backbone + C3</title>
-    <script data-main="require/require.config.js" src="node_modules/requirejs/require.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/c3/0.1.29/c3.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
 <body>
-    Hello World!
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="position: inherit;" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <span class="navbar-brand">Simple example of Require + Backbone + C3</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" style="margin-top: 20px;">
+
+        <div class="row">
+
+            <div id="lviv"></div>
+            <div id="san-jose"></div>
+
+        </div>
+    </div>
+
+
+
+    <script data-main="require/require.config.js" src="node_modules/requirejs/require.js"></script>
 </body>
 </html>
