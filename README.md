@@ -1,0 +1,4 @@
+## Start server
+```
+npm start
+```
