@@ -19,6 +19,7 @@
     "bootstrap": "^3.3.6",
     "c3": "^0.4.10",
     "connect": "^3.4.1",
+    "express": "^4.13.4",
     "jquery": "^2.2.2",
     "mustache": "^2.2.1",
     "require": "^2.4.20",
