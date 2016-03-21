@@ -19,7 +19,7 @@ define(function(require) {
             return this.render();
         },
         render: function(){
-            
+
             var self = this;
             var model = new WeatherModel(self.weatherInfo);
 
