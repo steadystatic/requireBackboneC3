@@ -1,5 +1,4 @@
 define(function(require) {
-    //var _ = require('underscore');
     var Backbone = require('backbone');
     var c3 = require('c3');
     var WeatherModel = require('../js/WeatherModel');
@@ -11,7 +10,8 @@ define(function(require) {
             this.weatherInfo = {
                 city: options.city,
                 country: options.country,
-                format: options.format
+                format: options.format,
+                color: options.color
             };
 
             console.log('WeatherView :: initialize', this.chartEl);
@@ -21,42 +21,76 @@ define(function(require) {
         render: function(){
 
             var self = this;
-            var model = new WeatherModel(self.weatherInfo);
+            this.model = new WeatherModel(self.weatherInfo);
 
-            console.log('WeatherView :: render', this.chartEl);
-
-            model.fetch({
+            this.model.fetch({
                 success: function(data){
                     var list = data.attributes.list;
-                    var temperatureList = self.getTemperature(list);
+                    var temperatureList = self.getWeatherData(list,'main', 'temp');
+                    var dateList = self.getWeatherData(list, '0', 'dt_txt');
                     var title = self.weatherInfo.city;
-                    var chart = c3.generate({
-                        bindto: self.chartEl,
-                        data: {
-                            columns: [
-                                [title].concat(temperatureList)
-                            ],
-                            types: {
-                                title: 'area-spline'
-                            },
-                            colors: {
-                                title: '#ff0000'
-                            }
-                        }
-                    });
-
+                    var color = self.weatherInfo.color;
+                    
+                    var ob = {
+                        title: title,
+                        list1: temperatureList,
+                        list2: dateList,
+                        chartEl: self.chartEl,
+                        color: color
+                    };
+                    self.displayChart(ob);
+                    
                 },
                 error: function(error){
                     console.log('error', error);
                 }
             });
+            
+            console.log('WeatherView :: render', this.chartEl);
         },
-        getTemperature: function(list){
+        getWeatherData: function(list,lvl, prop){
             var listOfTemp = _.map(list, function(el){
-                return el.main.temp;
+                if (lvl == '0'){
+                    return el[prop];
+                } else {
+                    return el[lvl][prop];
+                }
             });
 
             return listOfTemp;
+        },
+        displayChart: function(options){
+            var chart = c3.generate({
+                bindto: options.chartEl,
+                data: {
+                    x: 'x',
+                    xFormat: '%Y-%m-%d %H:%M:%S',
+                    columns: [
+                        ['Temperature'].concat(options.list1),
+                        ['x'].concat(options.list2)
+                    ],
+                    types: {
+                        Temperature: 'area-step',
+                        Date: 'area'
+                    },
+                    colors: {
+                        Temperature: options.color,
+                        Date: '#000'
+                    }
+                },
+                axis : {
+                    x : {
+                        type : 'timeseries',
+                        tick: {
+                            format: '%Y-%m-%d'
+                        }
+                    }
+                }
+            });
+
+            console.log('WeatherView :: displayChart');
+
+            return chart;
         }
     });
 
