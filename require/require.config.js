@@ -28,7 +28,7 @@ require.config({
         backbone: '../node_modules/backbone/backbone',
         text: '../node_modules/requirejs-text/text',
         mustache: '../node_modules/mustache/mustache',
-        d3: '../node_modules/d3/d3',
+        d3: '../node_modules/d3/dist/d3',
         c3: '../node_modules/c3/c3'
     }
 });
